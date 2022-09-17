@@ -13,8 +13,8 @@ module V1
           render json: @investment.errors.full_messages, status: :unprocessable_entity
         end
       end
-    rescue StandardError => e
-      render json: 'could not create investment, please try again', status: :unprocessable_entity
+    rescue StandardError
+      render json: { error: 'could not create investment, please try again' }, status: :service_unavailable
     end
 
     private
