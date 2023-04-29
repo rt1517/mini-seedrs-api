@@ -29,6 +29,15 @@ RSpec.describe V1::CampaignsController, type: :controller do
       end
     end
 
+    context 'some new specs' do
+      it 'returns correct error message with status' do
+        get :index, params: { filter_by: "invalid", query: "123" }
+        expect(JSON(response.body)).to eq("error" => "filter_by only allows id,name,image_url,country,sector,percentage_raised,target_amount,investment_multiple")
+        expect(response).to have_http_status(422)
+      end
+    end
+
+
     context 'when filtering column is invalid' do
       it 'returns correct error message with status' do
         get :index, params: { filter_by: "invalid", query: "123" }
